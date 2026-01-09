@@ -38,9 +38,9 @@ my_posts = [
 # SQL
 try:
     conn = psycopg2.connect(host= "localhost",
-                    database= "tutoDB",
+                    database= "course_fastapi",
                     user= "postgres",
-                    password= "kottak",
+                    password= "luna",
                     cursor_factory= RealDictCursor,
                     )
     cursor = conn.cursor()
