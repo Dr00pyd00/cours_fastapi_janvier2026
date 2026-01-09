@@ -3,6 +3,8 @@ from fastapi.params import Body
 from pydantic import BaseModel
 from typing import Optional
 from random import randrange
+import psycopg2
+from psycopg2.extras import RealDictCursor
 
 # func for retrieve post by id:
 def find_post_by_id(id:int):
@@ -24,7 +26,6 @@ class Post(BaseModel):
     title: str
     content: str
     published: bool = True
-    rating : Optional[int] = None
 
 # list for posts:
 my_posts = [
@@ -32,6 +33,25 @@ my_posts = [
     {"title":"T2", "content":"content 2", "id":2 },
     {"title":"T3", "content":"content 3", "id":3 },
     ]
+
+
+# SQL
+try:
+    conn = psycopg2.connect(host= "localhost",
+                    database= "tutoDB",
+                    user= "postgres",
+                    password= "kottak",
+                    cursor_factory= RealDictCursor,
+                    )
+    cursor = conn.cursor()
+    print("database connected!")
+
+except Exception as e:
+    print(f"ERROR db connect: {e}")
+
+
+
+
 
 # start app
 app = FastAPI()
